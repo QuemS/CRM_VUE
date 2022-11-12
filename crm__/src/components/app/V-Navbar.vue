@@ -47,6 +47,7 @@
 <script>
 import M from "materialize-css";
 
+
 export default {
   computed: {
    
@@ -77,7 +78,8 @@ export default {
       return Intl.DateTimeFormat('ru-Ru',this.options).format(this.date)
     },
 
-    logout() {
+    async logout() {
+      await this.$store.dispatch('logoutUser')
       console.log("logout");
       this.$router.push("/login?message=logout");
     },

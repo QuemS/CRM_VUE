@@ -9,6 +9,7 @@ import messagePlugin from '@/utils/messagePlugin'
 
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getDatabase } from "firebase/database";
 
 
 
@@ -17,6 +18,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 const firebaseConfig = {
   apiKey: "AIzaSyCfOTxOGpXoWnXfcovNt1wEteJEMpn7GUo",
   authDomain: "vue-crm-work.firebaseapp.com",
+  databaseURL: "https://vue-crm-work-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "vue-crm-work",
   storageBucket: "vue-crm-work.appspot.com",
   messagingSenderId: "442684899098",
@@ -26,6 +28,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const database = getDatabase(app);
 
 let appInvert
 
@@ -40,6 +43,10 @@ onAuthStateChanged(auth, () => {
 
 
 })
+
+export default {
+  database
+}
 
 
 

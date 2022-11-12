@@ -50,19 +50,28 @@
         </small>
       </div>
       <div class="input-field">
-        <input id="name" type="text" v-model.trim="name"
-        @blur="v$.name.$touch"
-       :class="{invalid: name.length <= v$.name.minLength.$params.min && v$.name.$dirty}"
+        <input
+          id="name"
+          type="text"
+          v-model.trim="name"
+          @blur="v$.name.$touch"
+          :class="{
+            invalid:
+              name.length <= v$.name.minLength.$params.min && v$.name.$dirty,
+          }"
         />
-        
+
         <label for="name">Имя</label>
-        <small class="helper-text invalid"
-         v-if="name.length <= v$.name.minLength.$params.min && v$.name.$dirty " 
-        > Имя некоректое </small>
+        <small
+          class="helper-text invalid"
+          v-if="name.length <= v$.name.minLength.$params.min && v$.name.$dirty"
+        >
+          Имя некоректое
+        </small>
       </div>
       <p>
         <label>
-          <input type="checkbox" v-model="agree"/>
+          <input type="checkbox" v-model="agree" />
           <span>С правилами согласен</span>
         </label>
       </p>
@@ -101,21 +110,27 @@ export default {
     return {
       email: { email, required },
       password: { required, minLength: minLength(6) },
-      name: { minLength: minLength(4),required },
-      agree: { checked: v => v },
+      name: { minLength: minLength(4), required },
+      agree: { checked: (v) => v },
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       console.log(this.v$.password.minLength.$params.min);
       if (this.v$.$invalid) return;
 
       const formData = {
         email: this.email,
         password: this.password,
+        name: this.name,
       };
-      console.log(formData);
-      this.$router.push("/");
+      try {
+        await this.$store.dispatch("registerUser", formData);
+        console.log(formData);
+        this.$router.push("/");
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
