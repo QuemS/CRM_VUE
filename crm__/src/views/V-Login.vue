@@ -49,7 +49,6 @@
           {{ v$.password.minLength.$params.min }} символов
         </small>
       </div>
-      
     </div>
     <div class="card-action">
       <div>
@@ -70,7 +69,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { minLength, required, email } from "@vuelidate/validators";
-import messages from '../utils/messages'
+import messages from "../utils/messages";
 
 export default {
   names: "login",
@@ -93,23 +92,26 @@ export default {
   },
 
   methods: {
-    submitForm() {
-      console.log(this.v$.password.minLength.$params.min);
+    async submitForm() {
       if (this.v$.$invalid) return;
-
-    const formData = {
-      email: this.email,
-      password: this.password,
-    }
-    console.log(formData);
-      this.$router.push("/");
+    
+    try {
+      await this.$store.dispatch("login", {email : this.email, password: this.password});
+      
+    }catch(e){console.log(e)}
+        
+      
     },
   },
   mounted() {
     if (messages[this.$route.query.message]) {
-      this.$message(messages[this.$route.query.message])
+      this.$message(messages[this.$route.query.message]);
     }
+
+    
   },
+
+
 };
 </script>
 
