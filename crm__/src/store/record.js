@@ -1,4 +1,4 @@
-import { doc, getFirestore,collection,setDoc } from "firebase/firestore";
+import { doc, getFirestore,collection,setDoc,getDocs } from "firebase/firestore";
 export default {
   actions:{
     async createRecord({dispatch, commit} ,record){
@@ -12,6 +12,18 @@ export default {
         commit('setError', e)
       }
     },
+    async fetchRecords({dispatch , commit}){
+      try {
+        const uid = await dispatch('userUid');
+        const db = getFirestore();
+        let collectionRef = collection(db, 'users', uid, 'records');
+        let result = await getDocs(collectionRef);
+        result = result.docs.map(item => item.data());
+        return result
+      } catch (error) {
+        commit('setError',error)
+      }
+    }
 
    
   }

@@ -15,6 +15,7 @@ export default createStore({
       return s.error
     },
     
+    
   },
   mutations: {
     setError(state, error) {
