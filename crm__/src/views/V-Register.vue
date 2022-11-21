@@ -124,14 +124,19 @@ export default {
         password: this.password,
         name: this.name,
       };
-      try {
-        await this.$store.dispatch("registerUser", formData);
-        console.log(formData);
-        this.$router.push("/");
-      } catch (e) {
-        console.log(e);
-      }
+      
+      await this.$store.dispatch("registerUser", formData);
+      this.$router.push("/");
+      
+      
+      
+      
     },
+    
   },
+  mounted(){
+      
+      
+    }
 };
 </script>

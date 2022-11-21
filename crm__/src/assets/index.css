@@ -20,9 +20,6 @@
   width: 100%
 }
 
-.helper-text.invalid {
-  color: #f44336
-}
 
 .app-page {
   padding: 2rem
@@ -194,3 +191,8 @@
   cursor: pointer;
   padding: 10px;
 }
+
+.helper-text.invalid {
+  color: #f44336
+}
+

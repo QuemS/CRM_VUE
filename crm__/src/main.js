@@ -15,6 +15,7 @@ import { getDatabase } from "firebase/database";
 
 
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCfOTxOGpXoWnXfcovNt1wEteJEMpn7GUo",
   authDomain: "vue-crm-work.firebaseapp.com",
@@ -29,6 +30,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
+
+
 
 let appInvert
 

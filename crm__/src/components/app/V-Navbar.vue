@@ -19,8 +19,11 @@
               href="#"
               data-target="dropdown"
               ref="dropdown"
+             
+              
             >
-              USER NAME
+            <span>{{nameUsers}}</span>
+              
               <i class="material-icons right">arrow_drop_down</i>
             </a>
 
@@ -48,9 +51,13 @@
 import M from "materialize-css";
 
 
+
 export default {
   computed: {
-   
+   nameUsers(){
+    console.log(this.$store.getters.info);
+    return this.$store.getters.info.name
+    }
   },
 
   data() {

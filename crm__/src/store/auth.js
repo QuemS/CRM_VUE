@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+
+
 
 
 import router from "@/router";
@@ -11,73 +12,63 @@ export default {
       const auth = getAuth();
       await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          // Signed in 
           const user = userCredential.user;
-
-          commit('getUser', user)
           if (user) {
             router.push('/')
           }
-          console.log(user, email, password);
-          // ...
         })
         .catch((error) => {
 
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
+          commit('setError', errorCode);
         });
     },
 
-    async logoutUser() {
+    async logoutUser({ commit }) {
       const auth = getAuth();
       await signOut(auth).then(() => {
+        commit('clearInfo')
         console.log(' Sign-out successful.');
       }).catch((error) => {
         console.log('error:', error);
       })
     },
 
-    async registerUser({ commit }, { email, password, name }) {
+    async registerUser({ commit, dispatch }, { email, password, name }) {
       const auth = getAuth();
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          let objectUser = {
+            name,
+            bill: 10000
+          }
 
-          const uid = userCredential.user.uid;
-          const db = getDatabase();
-            set(ref(db, `/users/${uid}/info`), {
-
-              name,
-              bill: 10000
-
-            })
-            console.log('write User Database');
+          dispatch('createInfo', objectUser);
+          commit('setInfo', objectUser)
+          // setDoc(doc(db, "users", uid), objectUser);
+          console.log('write User Database');
         })
         .catch((error) => {
-
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
+          commit('setError', errorCode);
 
         });
-
-        commit('test');
-          
     },
-   
+    userUid() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      return user ? user.uid : null
+    }
+
 
 
   },
   mutations: {
-    getUser(state, user) {
-      return state.user = user
-    },
-    test(){
-      return 'asdads'
-    }
+
+
   },
   state: {
-    user: []
+
   },
   getters: {
     userShow(state) {

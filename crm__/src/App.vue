@@ -9,10 +9,11 @@
 <script>
 import EmptyLayout from "@/layouts/EmptyLayout";
 import MainLayout from "@/layouts/MainLayout";
+
 export default {
+  
   computed: {
     layout() {
-      console.log(this.$route.meta);
       return (this.$route.meta.layout || 'empty') +'-layout'
     },
   },
@@ -24,6 +25,6 @@ export default {
 </script>
 
 <style>
-@import "./assets/index.css";
 @import "materialize-css/dist/css/materialize.min.css";
+@import "./assets/index.css";
 </style>
