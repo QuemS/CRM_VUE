@@ -1,5 +1,6 @@
 <template>
   <ul class="app-sidenav sidenav" :class="{ open: modelValue }">
+    
     <router-link
       v-for="link in links"
       :key="link.url"
@@ -29,6 +30,6 @@ export default {
         { title: "Категории", url: "/categories" },
       ],
     };
-  },
+  }
 };
 </script>

@@ -11,7 +11,7 @@
         <router-view />
       </main>
 
-      <div class="fixed-action-btn">
+      <div class="fixed-action-btn" v-tooltip="'Новая запись'">
         <a class="btn-floating btn-large blue" href="#">
           <i class="large material-icons">add</i>
         </a>
