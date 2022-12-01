@@ -14,7 +14,7 @@
     <tbody>
       <tr v-for="(record, idx) of records" :key="record.id">
         <td>{{ idx + 1 }}</td>
-        <td>{{ currencyFilter(record.amount) }}</td>
+        <td>{{ $currencyFilter(record.amount) }}</td>
         <td>{{ dateFilter(record.date) }}</td>
         <td>{{ record.categoryName }}</td>
         <td>
@@ -50,12 +50,12 @@ export default {
     },
   },
   methods: {
-    currencyFilter(value, currrency = "UAH") {
-      return new Intl.NumberFormat("ru-Ru", {
-        style: "currency",
-        currency: currrency,
-      }).format(value);
-    },
+    // currencyFilter(value, currrency = "UAH") {
+    //   return new Intl.NumberFormat("ru-Ru", {
+    //     style: "currency",
+    //     currency: currrency,
+    //   }).format(value);
+    // },
     dateFilter(date, format = "datetime") {
       if (format.includes("date")) {
         this.options.day = "2-digit";

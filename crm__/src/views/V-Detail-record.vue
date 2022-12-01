@@ -22,7 +22,7 @@
                   
                   <div class="card-content white-text">
                     <p>Описание: {{record.discription}}</p>
-                    <p>Сумма: {{currencyFilter(record.amount)}}</p>
+                    <p>Сумма: {{$currencyFilter(record.amount)}}</p>
                     <p>Категория: {{record.categoryName}}</p>
 
                     <small>{{dateFilter(record.date)}}</small>
@@ -57,12 +57,6 @@ export default {
     Loader
   },
   methods:{
-    currencyFilter(value, currrency = "UAH") {
-      return new Intl.NumberFormat("ru-Ru", {
-        style: "currency",
-        currency: currrency,
-      }).format(value);
-    },
     dateFilter(date, format = "datetime") {
       if (format.includes("date")) {
         this.options.day = "2-digit";

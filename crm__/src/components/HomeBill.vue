@@ -7,7 +7,7 @@
         <span class="card-title">Счет в валюте</span>
 
         <p class="currency-line" v-for="cur in currencies" :key="cur">
-          <span v-if="getCurrency"> {{ currencyFilter(getCurrency(cur), cur) }}</span>
+          <span v-if="getCurrency"> {{ $currencyFilter(getCurrency(cur), cur) }}</span>
         </p>
       </div>
     </div>
@@ -31,12 +31,6 @@ export default {
   methods: {
     getCurrency(cur) {
       return Math.floor(this.$store.getters.info.bill / this.rates[cur])
-    },
-    currencyFilter(value, currrency = "UAH") {
-      return new Intl.NumberFormat("ru-Ru", {
-        style: "currency",
-        currency: currrency,
-      }).format(value);
     },
   },
   

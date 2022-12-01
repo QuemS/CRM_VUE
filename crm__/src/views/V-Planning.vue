@@ -6,7 +6,7 @@
         <div>
           <div class="page-title">
             <h3>Планирование</h3>
-            <h4>{{currencyFilter(info.bill)}}</h4>
+            <h4>{{$currencyFilter(info.bill)}}</h4>
           </div>
           <v-loader v-if="loading"></v-loader>
           <p class="center" v-else-if="!categories.length">
@@ -17,7 +17,7 @@
             <div v-for="cat of categories" :key="cat.id">
               <p>
                 <strong>{{cat.title}}</strong>
-                {{currencyFilter(cat.spend)}} из {{currencyFilter(cat.limit)}}
+                {{$currencyFilter(cat.spend)}} из {{$currencyFilter(cat.limit)}}
               </p>
               <div class="progress" v-tooltip="cat.tooltip">
                 <div class="determinate" 
@@ -55,15 +55,8 @@ export default {
   computed:{
     ...mapGetters(['info'])
   },
-  methods:{
-    currencyFilter(value, currrency = "UAH") {
-      return new Intl.NumberFormat("ru-Ru", {
-        style: "currency",
-        currency: currrency,
-      }).format(value);
-    },
-  },
   async mounted() {
+    
     const records = await this.$store.dispatch("fetchRecords");
     const categories = await this.$store.dispatch("fetchCategory");
     console.log(records);
@@ -78,7 +71,7 @@ export default {
       const progressColor = persent < 60 ? 'green' : persent < 100 ? 'yellow': 'red';
 
       const tooltipValue = cat.limit - spend;
-      const tooltip = `${tooltipValue < 0? 'Привешает на': 'Осталось'} ${this.currencyFilter(Math.abs(tooltipValue))}` 
+      const tooltip = `${tooltipValue < 0? 'Привешает на': 'Осталось'} ${this.$currencyFilter(Math.abs(tooltipValue))}` 
       return {
         ...cat,
         progressPercent,

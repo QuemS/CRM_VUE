@@ -7,6 +7,7 @@ import store from './store'
 import 'materialize-css/dist/js/materialize.js'
 import messagePlugin from '@/utils/messagePlugin'
 import tooltipDirective from './directives/tooltip.directive'
+import currencyFilter from './utils/currency.filter'
 
 
 import { initializeApp } from 'firebase/app'
@@ -42,6 +43,7 @@ onAuthStateChanged(auth, () => {
     appInvert = createApp(App)
       .directive('tooltip',tooltipDirective)
       .use(messagePlugin)
+      .use(currencyFilter)
       .use(store)
       .use(router)
       .mount('#app')
