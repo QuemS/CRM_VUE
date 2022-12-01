@@ -1,5 +1,5 @@
 
-import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore'
+import { getFirestore, collection, getDocs, setDoc, doc,getDoc } from 'firebase/firestore'
 
 export default {
 
@@ -10,6 +10,15 @@ export default {
       let collectionRef = collection(db, 'users', uid, 'category');
       let result = await getDocs(collectionRef);
       result = result.docs.map(item => item.data());
+      return result
+
+    },
+    async fetchCategorById({ dispatch },id) {
+      const uid = await dispatch('userUid');
+      const db = getFirestore();
+      let docRef = doc(db, 'users', uid, 'category', id);
+      let result = await getDoc(docRef);
+      result = result.data()
       return result
 
     },

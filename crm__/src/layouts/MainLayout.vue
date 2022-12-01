@@ -15,6 +15,7 @@
         <a class="btn-floating btn-large blue" href="#">
           <i class="large material-icons">add</i>
         </a>
+        
       </div>
     </div>
   </div>
@@ -24,6 +25,7 @@
 import Navbar from "../components/app/V-Navbar";
 import Sidebar from "../components/app/V-Sidebar";
 import VLoader from "../components/app/V-Loader.vue";
+import messages from '@/utils/messages'
 export default {
   name: "main-layout",
 
@@ -32,6 +34,19 @@ export default {
       isOpen: true,
       loading: true,
     };
+  },
+  computed:{
+    error() {
+      return this.$store.getters.error
+    }
+  },
+  watch:{
+    error(fbError){
+      console.log(fbError);
+      this.$error(messages[fbError]);
+    },
+    
+    
   },
 
   components: {
