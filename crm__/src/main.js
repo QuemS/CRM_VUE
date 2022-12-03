@@ -19,8 +19,6 @@ import VueAwesomePaginate from "vue-awesome-paginate";
 
 
 
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyCfOTxOGpXoWnXfcovNt1wEteJEMpn7GUo",
   authDomain: "vue-crm-work.firebaseapp.com",

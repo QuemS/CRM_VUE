@@ -8,7 +8,9 @@
           </div>
 
           <div class="history-chart">
-            <canvas></canvas>
+            
+              <bar-chart></bar-chart>
+            
           </div>
           <Loader v-if="loading" />
           <p class="center" v-else-if="!records.length">
@@ -44,6 +46,7 @@
 import Loader from "../components/app/V-Loader.vue";
 import HistoryTable from "../components/HistoryTable.vue";
 import _ from "lodash"
+import BarChart from '../components/BarChart.vue';
 
 export default {
   data() {
@@ -63,6 +66,7 @@ export default {
   components: {
     HistoryTable,
     Loader,
+    BarChart,
   },
   methods:{
     onClickHandler(page){
