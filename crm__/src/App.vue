@@ -27,4 +27,5 @@ export default {
 <style>
 @import "materialize-css/dist/css/materialize.min.css";
 @import "./assets/index.css";
+@import "vue-awesome-paginate/dist/style.css";
 </style>

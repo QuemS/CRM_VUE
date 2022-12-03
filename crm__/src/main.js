@@ -13,6 +13,8 @@ import currencyFilter from './utils/currency.filter'
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { getDatabase } from "firebase/database";
+import VueAwesomePaginate from "vue-awesome-paginate";
+
 
 
 
@@ -41,6 +43,7 @@ let appInvert
 onAuthStateChanged(auth, () => {
   if (!appInvert) {
     appInvert = createApp(App)
+      .use(VueAwesomePaginate)
       .directive('tooltip',tooltipDirective)
       .use(messagePlugin)
       .use(currencyFilter)
