@@ -1,7 +1,5 @@
 <template>
   <div>
-   
-
     <main class="app-content">
       <div class="app-page">
         <div>
@@ -9,11 +7,29 @@
             <h3>Профиль</h3>
           </div>
 
-          <form class="form">
+          <form class="form" @submit.prevent="submitHendler()">
             <div class="input-field">
-              <input id="description" type="text" />
-              <label for="description">Имя</label>
-              <span class="helper-text invalid">name</span>
+              <input
+                id="name"
+                type="text"
+                v-model.trim="name"
+                @blur="v$.name.$touch"
+                :class="{
+                  invalid:
+                    name.length <= v$.name.minLength.$params.min &&
+                    v$.name.$dirty,
+                }"
+              />
+
+              <label for="name">Имя</label>
+              <small
+                class="helper-text invalid"
+                v-if="
+                  name.length <= v$.name.minLength.$params.min && v$.name.$dirty
+                "
+              >
+                Имя некоректое
+              </small>
             </div>
 
             <button class="btn waves-effect waves-light" type="submit">
@@ -32,3 +48,30 @@
     </div>
   </div>
 </template>
+
+<script>
+import useVuelidate from '@vuelidate/core';
+import { minLength ,required } from '@vuelidate/validators';
+export default {
+  data() {
+    return {
+      v$:useVuelidate(),
+      name: "",
+    };
+  },
+  methods: {
+    async submitHendler() {
+      
+      if (this.v$.$invalid) return;
+      console.log(this.name);
+      await this.$store.dispatch("updateInfo", { name: this.name } );
+    },
+  },
+  validations(){
+    return{
+      name: {minLength:minLength(4), required}
+    }
+  }
+ 
+};
+</script>
